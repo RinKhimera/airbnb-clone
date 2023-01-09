@@ -2,19 +2,19 @@ import React from "react";
 import card from "../img/katie-zaferes.png";
 import star from "../img/star.png";
 
-const Card = () => {
+const Card = (props) => {
   return (
     <div className="card">
       <img src={card} alt="Rin Khimera" className="card--image" />
       <div className="card--stats">
         <img src={star} alt="Rin Khimera" className="card--star" />
-        <span>5.0</span>
-        <span className="gray">(6) • </span>
-        <span className="gray">USA</span>
+        <span>{props.rating}</span>
+        <span className="gray">({props.reviewCount}) • </span>
+        <span className="gray">{props.country}</span>
       </div>
-      <p>Life Lessons with Katie Zaferes</p>
+      <p>{props.title}</p>
       <p>
-        <span className="bold">From $136</span> / person
+        <span className="bold">From ${props.price}</span> / person
       </p>
     </div>
   );

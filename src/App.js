@@ -8,7 +8,13 @@ function App() {
     <div>
       <Navbar />
       <Hero />
-      <Card />
+      <Card
+        rating="5.0"
+        reviewCount={6}
+        country="Cameroon"
+        title="Life Lessons with Katie Zaferes"
+        price={136}
+      />
     </div>
   );
 }
