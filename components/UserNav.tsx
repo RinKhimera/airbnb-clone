@@ -3,7 +3,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
@@ -16,6 +15,7 @@ import {
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { MenuIcon } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 const UserNav = async () => {
   const { getUser } = getKindeServerSession()
@@ -59,6 +59,27 @@ const UserNav = async () => {
       <DropdownMenuContent align="end" className="w-[200px]">
         {user ? (
           <>
+            <DropdownMenuItem>
+              <form action="" className="w-full">
+                <button type="submit">Airbnb your home</button>
+              </form>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="/my-homes" className="w-full">
+                My Listings
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="/favorites" className="w-full">
+                My Favorites
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="/reservations" className="w-full">
+                My Reservations
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogoutLink className="w-full">Logout</LogoutLink>
             </DropdownMenuItem>
