@@ -32,8 +32,6 @@ const UserNav = async () => {
     return `${firstInitial}${lastInitial}`
   }
 
-  console.log(user)
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
