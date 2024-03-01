@@ -1,8 +1,9 @@
+import { createCategoryPage } from "@/app/actions"
 import SelectedCategory from "@/components/SelectedCategory"
 import { Button, buttonVariants } from "@/components/ui/button"
 import Link from "next/link"
 
-const StructureRoute = () => {
+const StructureRoute = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <div className="mx-auto w-3/5">
@@ -11,7 +12,8 @@ const StructureRoute = () => {
         </h2>
       </div>
 
-      <form>
+      <form action={createCategoryPage}>
+        <input type="hidden" name="homeId" value={params.id} />
         <SelectedCategory />
 
         <div className="fixed bottom-0 z-10 h-24 w-full border-t bg-white">

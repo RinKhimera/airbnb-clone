@@ -1,3 +1,4 @@
+import { createAirbnbHome } from "@/app/actions"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
@@ -20,6 +21,10 @@ import Link from "next/link"
 const UserNav = async () => {
   const { getUser } = getKindeServerSession()
   const user = await getUser()
+
+  const createHomeWithId = createAirbnbHome.bind(null, {
+    userId: user?.id as string,
+  })
 
   const getInitials = (
     firstName: string | null,
@@ -58,7 +63,7 @@ const UserNav = async () => {
         {user ? (
           <>
             <DropdownMenuItem>
-              <form action="" className="w-full">
+              <form action={createHomeWithId} className="w-full">
                 <button type="submit">Airbnb your home</button>
               </form>
             </DropdownMenuItem>

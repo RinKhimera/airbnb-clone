@@ -13,10 +13,13 @@ import Image from "next/image"
 import { useState } from "react"
 
 const SelectedCategory = () => {
-  const [SelectedCategory, setSelectedCategory] = useState<String | null>(null)
+  const [SelectedCategory, setSelectedCategory] = useState<string | undefined>(
+    undefined,
+  )
 
   return (
     <div className="mx-auto mb-36 mt-10 grid w-3/5 grid-cols-4 gap-8">
+      <input type="hidden" name="categoryName" value={SelectedCategory} />
       {categoryItems.map((item) => (
         <div key={item.id} className="cursor-pointer">
           <Card

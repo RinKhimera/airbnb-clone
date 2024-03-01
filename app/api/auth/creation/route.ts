@@ -12,13 +12,14 @@ export const GET = async () => {
 
   let dbUser = await prisma.user.findUnique({
     where: {
-      email: user.email as string,
+      id: user.id,
     },
   })
 
   if (!dbUser) {
     dbUser = await prisma.user.create({
       data: {
+        id: user.id,
         email: user.email as string,
         firstName: user.given_name as string,
         lastName: user.family_name as string,
