@@ -26,7 +26,9 @@ model Home {
   id               String   @id @default(cuid())
   title            String?
   description      String?
+  guests           String?
   bedrooms         String?
+  bathrooms        String?
   country          String?
   photo            String?
   price            Int?
