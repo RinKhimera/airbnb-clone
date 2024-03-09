@@ -1,7 +1,9 @@
 "use server"
 
+import { descriptionFormSchema } from "@/app/create/[id]/description/page"
 import prisma from "@/prisma/db"
 import { redirect } from "next/navigation"
+import { z } from "zod"
 
 export const createAirbnbHome = async ({ userId }: { userId: string }) => {
   const data = await prisma.home.findFirst({
@@ -48,17 +50,46 @@ export const createCategoryPage = async (formData: FormData) => {
   return redirect(`/create/${homeId}/description`)
 }
 
-export const createDescription = async (formData: FormData) => {
-  const title = formData.get("title") as string
-  const description = formData.get("description") as string
-  const price = formData.get("price")
-  const imageFile = formData.get("image") as File
-  const homeId = formData.get("homeId") as string
+export const createDescription = async (
+  values: z.infer<typeof descriptionFormSchema>,
+  guestNumber: number,
+  roomNumber: number,
+  bathroomNumber: number,
+  homeId: string,
+  imgUrl: string,
+) => {
+  const validatedFields = descriptionFormSchema.safeParse(values)
 
-  const guestNumber = formData.get("guest") as string
-  const roomNumber = formData.get("room") as string
-  const bathroomNumber = formData.get("bathroom") as string
+  if (!validatedFields.success) {
+    return { error: "Invalid Fields" }
+  }
 
+  const { title, description, price } = validatedFields.data
+
+  await prisma.home.update({
+    where: {
+      id: homeId,
+    },
+    data: {
+      title: title,
+      description: description,
+      price: price,
+      photo: imgUrl,
+      guests: guestNumber,
+      bedrooms: roomNumber,
+      bathrooms: bathroomNumber,
+      addedDescription: true,
+    },
+  })
+
+  // const title = formData.get("title") as string
+  // const description = formData.get("description") as string
+  // const price = formData.get("price")
+  // const imageFile = formData.get("image") as File
+  // const homeId = formData.get("homeId") as string
+  // const guestNumber = formData.get("guest") as string
+  // const roomNumber = formData.get("room") as string
+  // const bathroomNumber = formData.get("bathroom") as string
   // const data = await prisma.home.update({
   //   where: {
   //     id: homeId,
@@ -74,6 +105,5 @@ export const createDescription = async (formData: FormData) => {
   //     addedDescription: true,
   //   },
   // })
-
-  return redirect(`/create/${homeId}/address`)
+  // return redirect(`/create/${homeId}/address`)
 }

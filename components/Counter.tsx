@@ -4,11 +4,16 @@ import { Button } from "@/components/ui/button"
 import { Minus, Plus } from "lucide-react"
 import { useState } from "react"
 
-export const Counter = ({ name }: { name: string }) => {
-  const [amount, setAmount] = useState(0)
+type CounterProps = {
+  amount: number
+  setAmount: React.Dispatch<React.SetStateAction<number>>
+}
 
+export const Counter = ({ amount, setAmount }: CounterProps) => {
   const increaseCount = () => {
-    setAmount(amount + 1)
+    if (amount < 10) {
+      setAmount(amount + 1)
+    }
   }
 
   const decreaseCount = () => {
@@ -19,7 +24,7 @@ export const Counter = ({ name }: { name: string }) => {
 
   return (
     <div className="flex items-center gap-x-4">
-      <input type="hidden" name={name} value={amount} />
+      <input type="hidden" value={amount} />
       <Button
         variant="outline"
         size="icon"
