@@ -1,7 +1,7 @@
 "use server"
 
-import { descriptionFormSchema } from "@/app/create/[id]/description/page"
 import prisma from "@/prisma/db"
+import { descriptionFormSchema } from "@/schemas"
 import { redirect } from "next/navigation"
 import { z } from "zod"
 
@@ -52,10 +52,10 @@ export const createCategoryPage = async (formData: FormData) => {
 
 export const createDescription = async (
   values: z.infer<typeof descriptionFormSchema>,
+  homeId: string,
   guestNumber: number,
   roomNumber: number,
   bathroomNumber: number,
-  homeId: string,
   imgUrl: string,
 ) => {
   const validatedFields = descriptionFormSchema.safeParse(values)
@@ -105,5 +105,5 @@ export const createDescription = async (
   //     addedDescription: true,
   //   },
   // })
-  // return redirect(`/create/${homeId}/address`)
+  return redirect(`/create/${homeId}/address`)
 }
