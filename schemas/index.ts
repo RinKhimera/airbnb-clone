@@ -5,6 +5,6 @@ export const descriptionFormSchema = z.object({
   description: z
     .string()
     .min(1, { message: "This field is required" })
-    .max(250),
+    .max(800),
   price: z.coerce.number().min(10),
 })

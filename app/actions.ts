@@ -6,7 +6,8 @@ import { redirect } from "next/navigation"
 import { z } from "zod"
 
 export const createAirbnbHome = async ({ userId }: { userId: string }) => {
-  const data = await prisma.home.findFirst({
+  // Find the latest home entry for the user
+  const latestHome = await prisma.home.findFirst({
     where: {
       userId,
     },
@@ -15,41 +16,42 @@ export const createAirbnbHome = async ({ userId }: { userId: string }) => {
     },
   })
 
-  if (!data) {
-    const data = await prisma.home.create({
+  // If no previous home entry exists, create a new one
+  if (!latestHome) {
+    const newHome = await prisma.home.create({
       data: {
         userId,
       },
     })
 
-    return redirect(`/create/${data.id}/structure`)
-  } else if (
-    !data.addedCategory &&
-    !data.addedDescription &&
-    !data.addedLocation
-  ) {
-    return redirect(`/create/${data.id}/structure`)
-  } else if (data.addedCategory && !data.addedDescription) {
-    return redirect(`/create/${data.id}/description`)
-  } else if (
-    data.addedCategory &&
-    data.addedDescription &&
-    !data.addedLocation
-  ) {
-    return redirect(`/create/${data.id}/address`)
-  } else if (
-    data.addedCategory &&
-    data.addedDescription &&
-    data.addedLocation
-  ) {
-    const data = await prisma.home.create({
-      data: {
-        userId,
-      },
-    })
-
-    return redirect(`/create/${data.id}/structure`)
+    return redirect(`/create/${newHome.id}/structure`)
   }
+
+  // Check the completeness of the latest home entry
+  const { addedCategory, addedDescription, addedLocation } = latestHome
+
+  if (!addedCategory || !addedDescription || !addedLocation) {
+    // If any of the required fields are missing, redirect to the appropriate step
+    if (!addedCategory && !addedDescription && !addedLocation) {
+      // If no step is completed yet, redirect to structure
+      return redirect(`/create/${latestHome.id}/structure`)
+    } else if (addedCategory && !addedDescription) {
+      // If category is added but description is missing, redirect to description
+      return redirect(`/create/${latestHome.id}/description`)
+    } else if (addedCategory && addedDescription && !addedLocation) {
+      // If category and description are added but location is missing, redirect to address
+      return redirect(`/create/${latestHome.id}/address`)
+    }
+  }
+
+  // If all steps are completed, create a new home entry and redirect to structure
+  const newHome = await prisma.home.create({
+    data: {
+      userId,
+    },
+  })
+
+  return redirect(`/create/${newHome.id}/structure`)
 }
 
 export const createCategoryPage = async (formData: FormData) => {
