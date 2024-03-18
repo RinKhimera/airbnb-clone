@@ -2,6 +2,7 @@
 
 import prisma from "@/prisma/db"
 import { descriptionFormSchema } from "@/schemas"
+import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from "zod"
 
@@ -57,7 +58,8 @@ export const createAirbnbHome = async ({ userId }: { userId: string }) => {
 export const createCategoryPage = async (formData: FormData) => {
   const catergoryName = formData.get("categoryName") as string
   const homeId = formData.get("homeId") as string
-  const data = await prisma.home.update({
+
+  await prisma.home.update({
     where: {
       id: homeId,
     },
@@ -109,7 +111,7 @@ export const createLocation = async (formData: FormData) => {
   const homeId = formData.get("homeId") as string
   const countryValue = formData.get("countryValue") as string
 
-  const data = await prisma.home.update({
+  await prisma.home.update({
     where: {
       id: homeId,
     },
@@ -120,4 +122,36 @@ export const createLocation = async (formData: FormData) => {
   })
 
   return redirect("/")
+}
+
+export const addToFavorite = async (formData: FormData) => {
+  const homeId = formData.get("homeId") as string
+  const userId = formData.get("userId") as string
+  const pathname = formData.get("pathname") as string
+
+  await prisma.favorite.create({
+    data: {
+      userId,
+      homeId,
+    },
+  })
+
+  revalidatePath(pathname)
+}
+
+export const removeFavorite = async (formData: FormData) => {
+  const homeId = formData.get("homeId") as string
+  const userId = formData.get("userId") as string
+  const pathname = formData.get("pathname") as string
+
+  await prisma.favorite.delete({
+    where: {
+      userId_homeId: {
+        userId: userId,
+        homeId: homeId,
+      },
+    },
+  })
+
+  revalidatePath(pathname)
 }

@@ -3,14 +3,17 @@ import MapFilterItems from "@/components/MapFilterItems"
 import NoItems from "@/components/NoItems"
 import SkeletonCard from "@/components/SkeletonCard"
 import prisma from "@/prisma/db"
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { Suspense } from "react"
 
 const getData = async ({
   searchParams,
+  userId,
 }: {
   searchParams?: {
     filter?: string
   }
+  userId: string | undefined
 }) => {
   const data = await prisma.home.findMany({
     where: {
@@ -25,6 +28,11 @@ const getData = async ({
       price: true,
       description: true,
       country: true,
+      Favorite: {
+        where: {
+          userId: userId ?? undefined,
+        },
+      },
     },
   })
 
@@ -56,7 +64,12 @@ const ShowItems = async ({
     filter?: string
   }
 }) => {
-  const data = await getData({ searchParams: searchParams })
+  const { getUser } = getKindeServerSession()
+  const user = await getUser()
+
+  const data = await getData({ searchParams: searchParams, userId: user?.id })
+
+  // console.log(data)
 
   return (
     <>
@@ -67,10 +80,14 @@ const ShowItems = async ({
           {data.map((item) => (
             <ListingCard
               key={item.id}
+              homeId={item.id}
               imagePath={item.photo}
               description={item.description}
               location={item.country}
               price={item.price}
+              userId={user?.id}
+              isFavorite={item.Favorite.length > 0 ? true : false}
+              pathname="/"
             />
           ))}
         </div>
