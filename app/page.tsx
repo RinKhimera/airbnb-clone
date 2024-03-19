@@ -1,7 +1,7 @@
-import ListingCard from "@/components/ListingCard"
-import MapFilterItems from "@/components/MapFilterItems"
-import NoItems from "@/components/NoItems"
-import SkeletonCard from "@/components/SkeletonCard"
+import { ListingCard } from "@/components/ListingCard"
+import { MapFilterItems } from "@/components/MapFilterItems"
+import { NoItems } from "@/components/NoItems"
+import { SkeletonCard } from "@/components/SkeletonCard"
 import prisma from "@/prisma/db"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { Suspense } from "react"
@@ -74,7 +74,10 @@ const ShowItems = async ({
   return (
     <>
       {data.length === 0 ? (
-        <NoItems />
+        <NoItems
+          title="Sorry, no listings found for ths category!"
+          description="Please check another category or create your own listing!"
+        />
       ) : (
         <div className="mt-8 grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {data.map((item) => (
@@ -97,14 +100,17 @@ const ShowItems = async ({
 }
 
 const SkeletonLoading = () => {
+  // Define the number of skeleton cards you want to render
+  const numSkeletonCards = 8
+
+  // Create an array of length numSkeletonCards filled with null values
+  const skeletonCards = Array.from({ length: numSkeletonCards }, (_, index) => (
+    <SkeletonCard key={index} />
+  ))
+
   return (
     <div className="mt-8 grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
+      {skeletonCards}
     </div>
   )
 }

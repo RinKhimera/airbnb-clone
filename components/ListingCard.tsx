@@ -18,7 +18,7 @@ type ListingCardProps = {
   pathname: string
 }
 
-const ListingCard = ({
+export const ListingCard = ({
   homeId,
   description,
   imagePath,
@@ -34,12 +34,14 @@ const ListingCard = ({
   return (
     <div className="flex flex-col">
       <div className="relative h-72">
-        <Image
-          className="h-full rounded-md object-cover"
-          src={imagePath as string}
-          alt={""}
-          fill
-        />
+        <Link href={`/home/${homeId}`}>
+          <Image
+            className="h-full rounded-md object-cover"
+            src={imagePath as string}
+            alt={""}
+            fill
+          />
+        </Link>
 
         {userId && (
           <div className="absolute right-2 top-2 z-10">
@@ -62,7 +64,7 @@ const ListingCard = ({
         )}
       </div>
 
-      <Link href={"/"} className="mt-2">
+      <Link href={`/home/${homeId}`} className="mt-2">
         <h3 className="text-base font-medium">
           {country?.label} / {country?.region}
         </h3>
@@ -76,5 +78,3 @@ const ListingCard = ({
     </div>
   )
 }
-
-export default ListingCard

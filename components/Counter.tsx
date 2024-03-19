@@ -10,13 +10,13 @@ type CounterProps = {
 
 export const Counter = ({ amount, setAmount }: CounterProps) => {
   const increaseCount = () => {
-    if (amount < 10) {
+    if (amount < 12) {
       setAmount(amount + 1)
     }
   }
 
   const decreaseCount = () => {
-    if (amount > 0) {
+    if (amount > 1) {
       setAmount(amount - 1)
     }
   }

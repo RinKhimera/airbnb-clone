@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button"
 import { Heart, Loader2 } from "lucide-react"
 import { useFormStatus } from "react-dom"
 
-export const CreationSubmit = () => {
+export const CreationSubmit = ({ descPending }: { descPending?: boolean }) => {
   const { pending } = useFormStatus()
 
   return (
     <>
-      {pending ? (
+      {pending || descPending ? (
         <Button disabled size={"lg"}>
           <Loader2 className="mr-2 size-4 animate-spin" />
           Please wait

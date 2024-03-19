@@ -7,7 +7,7 @@ import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 import { useCallback } from "react"
 
-const MapFilterItems = () => {
+export const MapFilterItems = () => {
   const searchParams = useSearchParams()
   const search = searchParams.get("filter")
   const pathname = usePathname()
@@ -50,5 +50,3 @@ const MapFilterItems = () => {
     </div>
   )
 }
-
-export default MapFilterItems

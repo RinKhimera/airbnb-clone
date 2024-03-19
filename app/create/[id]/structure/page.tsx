@@ -1,6 +1,6 @@
 import { createCategoryPage } from "@/app/actions"
-import CreationBottomBar from "@/components/CreationBottomBar"
-import SelectedCategory from "@/components/SelectedCategory"
+import { CreationBottomBar } from "@/components/CreationBottomBar"
+import { SelectedCategory } from "@/components/SelectedCategory"
 
 const StructureRoute = ({ params }: { params: { id: string } }) => {
   return (

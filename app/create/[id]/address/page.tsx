@@ -1,7 +1,7 @@
 "use client"
 
 import { createLocation } from "@/app/actions"
-import CreationBottomBar from "@/components/CreationBottomBar"
+import { CreationBottomBar } from "@/components/CreationBottomBar"
 import {
   Select,
   SelectContent,

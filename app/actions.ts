@@ -72,14 +72,21 @@ export const createCategoryPage = async (formData: FormData) => {
   return redirect(`/create/${homeId}/description`)
 }
 
-export const createDescription = async (
-  values: z.infer<typeof descriptionFormSchema>,
-  homeId: string,
-  guestNumber: number,
-  roomNumber: number,
-  bathroomNumber: number,
-  imgUrl: string,
-) => {
+export const createDescription = async ({
+  homeId,
+  values,
+  guestNumber,
+  roomNumber,
+  bathroomNumber,
+  imgUrl,
+}: {
+  homeId: string
+  values: z.infer<typeof descriptionFormSchema>
+  guestNumber: number
+  roomNumber: number
+  bathroomNumber: number
+  imgUrl: string
+}) => {
   const validatedFields = descriptionFormSchema.safeParse(values)
 
   if (!validatedFields.success) {

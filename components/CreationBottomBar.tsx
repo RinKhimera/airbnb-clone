@@ -2,7 +2,11 @@ import { CreationSubmit } from "@/components/SubmitButtons"
 import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link"
 
-const CreationBottomBar = () => {
+export const CreationBottomBar = ({
+  descPending,
+}: {
+  descPending?: boolean
+}) => {
   return (
     <div className="fixed bottom-0 z-10 h-24 w-full border-t bg-white">
       <div className="mx-auto flex h-full items-center justify-between px-5 lg:px-10">
@@ -12,10 +16,8 @@ const CreationBottomBar = () => {
         >
           Cancel
         </Link>
-        <CreationSubmit />
+        <CreationSubmit descPending={descPending} />
       </div>
     </div>
   )
 }
-
-export default CreationBottomBar

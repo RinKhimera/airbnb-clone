@@ -12,7 +12,7 @@ import { categoryItems } from "@/lib/categoryItems"
 import Image from "next/image"
 import { useState } from "react"
 
-const SelectedCategory = () => {
+export const SelectedCategory = () => {
   const [SelectedCategory, setSelectedCategory] = useState<string | undefined>(
     undefined,
   )
@@ -43,5 +43,3 @@ const SelectedCategory = () => {
     </div>
   )
 }
-
-export default SelectedCategory

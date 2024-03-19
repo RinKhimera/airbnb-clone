@@ -4,7 +4,7 @@ import MobileLogo from "@/public/airbnb-mobile.webp"
 import Image from "next/image"
 import Link from "next/link"
 
-const SiteHeader = () => {
+export const SiteHeader = () => {
   return (
     <div className="w-full border-b">
       <div className="mx-auto flex items-center justify-between px-5 py-5 lg:px-10">
@@ -31,5 +31,3 @@ const SiteHeader = () => {
     </div>
   )
 }
-
-export default SiteHeader
