@@ -207,7 +207,11 @@ const DescriptionPage = ({ params }: { params: { id: string } }) => {
                     </p>
                   </div>
 
-                  <Counter amount={guestNumber} setAmount={setGuestNumber} />
+                  <Counter
+                    amount={guestNumber}
+                    setAmount={setGuestNumber}
+                    name="guest"
+                  />
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
@@ -217,7 +221,11 @@ const DescriptionPage = ({ params }: { params: { id: string } }) => {
                     </p>
                   </div>
 
-                  <Counter amount={roomNumber} setAmount={setRoomNumber} />
+                  <Counter
+                    amount={roomNumber}
+                    setAmount={setRoomNumber}
+                    name="room"
+                  />
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
@@ -230,6 +238,7 @@ const DescriptionPage = ({ params }: { params: { id: string } }) => {
                   <Counter
                     amount={bathroomNumber}
                     setAmount={setBathroomNumber}
+                    name="bathroom"
                   />
                 </div>
               </CardHeader>
