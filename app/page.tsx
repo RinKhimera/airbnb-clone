@@ -98,8 +98,6 @@ const ShowItems = async ({
 
   const data = await getData({ searchParams: searchParams, userId: user?.id })
 
-  // console.log(data)
-
   return (
     <>
       {data.length === 0 ? (
