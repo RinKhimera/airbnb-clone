@@ -2,7 +2,7 @@
 
 import { createDescription } from "@/app/actions"
 import { Counter } from "@/components/Counter"
-import CreationBottomBar from "@/components/CreationBottomBar"
+import { CreationBottomBar } from "@/components/CreationBottomBar"
 import { Card, CardHeader } from "@/components/ui/card"
 import {
   Form,

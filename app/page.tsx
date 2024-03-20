@@ -10,17 +10,35 @@ const getData = async ({
   searchParams,
   userId,
 }: {
+  userId: string | undefined
   searchParams?: {
     filter?: string
+    country?: string
+    guest?: string
+    room?: string
+    bathroom?: string
   }
-  userId: string | undefined
 }) => {
+  const convertStringToNumber = (stringNumber: string | undefined) => {
+    // If the searchParams is undefined, return undefined
+    if (stringNumber === undefined) {
+      return undefined
+    }
+
+    // Otherwise, parse the string to a number
+    return parseInt(stringNumber)
+  }
+
   const data = await prisma.home.findMany({
     where: {
       addedCategory: true,
       addedDescription: true,
       addedLocation: true,
       categoryName: searchParams?.filter ?? undefined,
+      country: searchParams?.country ?? undefined,
+      guests: convertStringToNumber(searchParams?.guest) ?? undefined,
+      bedrooms: convertStringToNumber(searchParams?.room) ?? undefined,
+      bathrooms: convertStringToNumber(searchParams?.bathroom) ?? undefined,
     },
     select: {
       id: true,
@@ -35,7 +53,7 @@ const getData = async ({
       },
     },
   })
-
+  console.log(convertStringToNumber(searchParams?.guest as string))
   return data
 }
 
@@ -44,6 +62,10 @@ export default function Home({
 }: {
   searchParams?: {
     filter?: string
+    country?: string
+    guest?: string
+    room?: string
+    bathroom?: string
   }
 }) {
   return (
@@ -62,6 +84,10 @@ const ShowItems = async ({
 }: {
   searchParams?: {
     filter?: string
+    country?: string
+    guest?: string
+    room?: string
+    bathroom?: string
   }
 }) => {
   const { getUser } = getKindeServerSession()

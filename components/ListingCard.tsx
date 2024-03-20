@@ -8,11 +8,11 @@ import Image from "next/image"
 import Link from "next/link"
 
 type ListingCardProps = {
-  homeId: string
-  imagePath: string | null
-  description: string | null
-  location: string | null
-  price: number | null
+  homeId: string | undefined
+  imagePath: string | null | undefined
+  description: string | null | undefined
+  location: string | null | undefined
+  price: number | null | undefined
   userId: string | undefined
   isFavorite: boolean
   pathname: string

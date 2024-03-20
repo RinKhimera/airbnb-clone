@@ -1,6 +1,6 @@
 import { SkeletonCard } from "@/components/SkeletonCard"
 
-const FavoritesLoading = () => {
+const ReservationsLoading = () => {
   // Define the number of skeleton cards you want to render
   const numSkeletonCards = 8
 
@@ -11,7 +11,9 @@ const FavoritesLoading = () => {
 
   return (
     <section className="container mx-auto mt-10 px-5 lg:px-10">
-      <h2 className="text-3xl font-semibold tracking-tight">Your Favorites</h2>
+      <h2 className="text-3xl font-semibold tracking-tight">
+        Your Reservations
+      </h2>
 
       <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {skeletonCards}
@@ -20,4 +22,4 @@ const FavoritesLoading = () => {
   )
 }
 
-export default FavoritesLoading
+export default ReservationsLoading

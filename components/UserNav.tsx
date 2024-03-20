@@ -18,7 +18,7 @@ import { MenuIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
-const UserNav = async () => {
+export const UserNav = async () => {
   const { getUser } = getKindeServerSession()
   const user = await getUser()
 
@@ -101,5 +101,3 @@ const UserNav = async () => {
     </DropdownMenu>
   )
 }
-
-export default UserNav

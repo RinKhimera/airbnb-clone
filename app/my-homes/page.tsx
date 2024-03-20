@@ -1,5 +1,5 @@
-import ListingCard from "@/components/ListingCard"
-import NoItems from "@/components/NoItems"
+import { ListingCard } from "@/components/ListingCard"
+import { NoItems } from "@/components/NoItems"
 import prisma from "@/prisma/db"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { redirect } from "next/navigation"

@@ -1,4 +1,4 @@
-import SkeletonCard from "@/components/SkeletonCard"
+import { SkeletonCard } from "@/components/SkeletonCard"
 
 const FavoritesLoading = () => {
   // Define the number of skeleton cards you want to render

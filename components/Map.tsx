@@ -11,7 +11,7 @@ const ICON = icon({
   iconSize: [50, 50],
 })
 
-const Map = ({ locationValue }: { locationValue: string }) => {
+export const Map = ({ locationValue }: { locationValue: string }) => {
   const { getCountryByValue } = useCountries()
   const latLang = getCountryByValue(locationValue)?.latLang
 

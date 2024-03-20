@@ -1,4 +1,5 @@
-import UserNav from "@/components/UserNav"
+import { SearchComponent } from "@/components/SearchComponent"
+import { UserNav } from "@/components/UserNav"
 import DesktopLogo from "@/public/airbnb-desktop.png"
 import MobileLogo from "@/public/airbnb-mobile.webp"
 import Image from "next/image"
@@ -22,9 +23,7 @@ export const SiteHeader = () => {
           />
         </Link>
 
-        <div className="rounded-full border px-5 py-2">
-          <h1>Hello from the search</h1>
-        </div>
+        <SearchComponent />
 
         <UserNav />
       </div>
