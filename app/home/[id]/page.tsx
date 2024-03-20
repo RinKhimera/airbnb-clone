@@ -9,10 +9,13 @@ import { Separator } from "@/components/ui/separator"
 import { useCountries } from "@/lib/getCountries"
 import prisma from "@/prisma/db"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
+import { unstable_noStore as noStore } from "next/cache"
 import Image from "next/image"
 import Link from "next/link"
 
 const getData = async (homeId: string) => {
+  noStore()
+
   const data = await prisma.home.findUnique({
     where: {
       id: homeId,

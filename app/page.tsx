@@ -4,6 +4,7 @@ import { NoItems } from "@/components/NoItems"
 import { SkeletonCard } from "@/components/SkeletonCard"
 import prisma from "@/prisma/db"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
+import { unstable_noStore as noStore } from "next/cache"
 import { Suspense } from "react"
 
 const getData = async ({
@@ -19,6 +20,8 @@ const getData = async ({
     bathroom?: string
   }
 }) => {
+  noStore()
+
   const convertStringToNumber = (stringNumber: string | undefined) => {
     // If the searchParams is undefined, return undefined
     if (stringNumber === undefined) {
