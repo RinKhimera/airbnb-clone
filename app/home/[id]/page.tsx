@@ -84,7 +84,10 @@ const HomeDetails = async ({
 
           <div className="mt-6 flex items-center">
             <Avatar className="hidden lg:block">
-              <AvatarImage src={data?.User?.profileImage} alt="User Image" />
+              <AvatarImage
+                src={data?.User?.profileImage as string | undefined}
+                alt="User image"
+              />
               <AvatarFallback>XO</AvatarFallback>
             </Avatar>
 
