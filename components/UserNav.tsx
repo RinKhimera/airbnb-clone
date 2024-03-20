@@ -45,7 +45,7 @@ export const UserNav = async () => {
 
           {user ? (
             <Avatar className="hidden lg:block">
-              <AvatarImage src={user.picture} alt="User Image" />
+              <AvatarImage src={user.picture as string} alt="User Image" />
               <AvatarFallback>
                 {getInitials(user.given_name, user.family_name)}
               </AvatarFallback>
