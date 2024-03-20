@@ -31,5 +31,10 @@ export const GET = async () => {
     })
   }
 
-  return NextResponse.redirect("http://localhost:3000/")
+  if (process.env.NODE_ENV === "development") {
+    return NextResponse.redirect("http://localhost:3000/")
+  } else {
+    // Environment is production
+    return NextResponse.redirect("https://rin-airbnb.vercel.app")
+  }
 }
