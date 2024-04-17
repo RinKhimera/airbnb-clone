@@ -102,7 +102,7 @@ const ShowItems = async ({
     <>
       {data.length === 0 ? (
         <NoItems
-          title="Sorry, no listings found for ths category!"
+          title="Sorry, no listings found for this category!"
           description="Please check another category or create your own listing!"
         />
       ) : (
