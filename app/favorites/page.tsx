@@ -24,6 +24,9 @@ const getData = async (userId: string) => {
         },
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   })
 
   return data

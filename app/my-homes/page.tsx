@@ -6,6 +6,7 @@ import { unstable_noStore as noStore } from "next/cache"
 import { redirect } from "next/navigation"
 
 const getData = async (userId: string) => {
+  // Used to declaratively opt out of static rendering and indicate this particular component should not be cached.
   noStore()
 
   const data = await prisma.home.findMany({

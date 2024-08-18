@@ -20,6 +20,7 @@ const getData = async ({
     bathroom?: string
   }
 }) => {
+  // Used to declaratively opt out of static rendering and indicate this particular component should not be cached.
   noStore()
 
   const convertStringToNumber = (stringNumber: string | undefined) => {
@@ -54,6 +55,9 @@ const getData = async ({
           userId: userId ?? undefined,
         },
       },
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   })
   console.log(convertStringToNumber(searchParams?.guest as string))

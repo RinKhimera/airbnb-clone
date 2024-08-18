@@ -23,7 +23,7 @@ import { descriptionFormSchema } from "@/schemas"
 import { UploadButton } from "@/utils/uploadthing"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -31,11 +31,13 @@ const DescriptionPage = ({ params }: { params: { id: string } }) => {
   const [guestNumber, setGuestNumber] = useState(1)
   const [roomNumber, setRoomNumber] = useState(1)
   const [bathroomNumber, setBathroomNumber] = useState(1)
-  const [pending, setPending] = useState(false)
+  // const [pending, setPending] = useState(false)
   // const [file, setFile] = useState<File>()
-  const [progress, setProgress] = useState(0)
+  // const [progress, setProgress] = useState(0)
   const [imgName, setImgName] = useState("")
   const [imgUrl, setimgUrl] = useState("")
+
+  const [isPending, startTransition] = useTransition()
 
   // const { edgestore } = useEdgeStore()
 
@@ -49,38 +51,38 @@ const DescriptionPage = ({ params }: { params: { id: string } }) => {
   })
 
   const onSubmit = async (values: z.infer<typeof descriptionFormSchema>) => {
-    setPending(true)
-    try {
-      // if (file) {
-      //   const res = await edgestore.homeImage.upload({
-      //     file,
-      //     onProgressChange: (progress) => {
-      //       // Progress bar management
-      //       setProgress(progress)
-      //       console.log(progress)
-      //     },
-      //   })
-      // }
+    startTransition(async () => {
+      try {
+        // if (file) {
+        //   const res = await edgestore.homeImage.upload({
+        //     file,
+        //     onProgressChange: (progress) => {
+        //       // Progress bar management
+        //       setProgress(progress)
+        //       console.log(progress)
+        //     },
+        //   })
+        // }
 
-      if (!imgUrl) {
-        toast.error("Please upload an image")
-        return
+        if (!imgUrl) {
+          toast.error("Please upload an image")
+          return
+        }
+
+        // Server action or api here to add the necessary data to your database
+        await createDescription({
+          homeId: params.id,
+          values,
+          guestNumber,
+          roomNumber,
+          bathroomNumber,
+          // imgUrl: res.url,
+          imgUrl: imgUrl,
+        })
+      } catch (error) {
+        throw error
       }
-
-      // Server action or api here to add the necessary data to your database
-      await createDescription({
-        homeId: params.id,
-        values,
-        guestNumber,
-        roomNumber,
-        bathroomNumber,
-        // imgUrl: res.url,
-        imgUrl: imgUrl,
-      })
-    } catch (error) {
-      throw error
-    }
-    setPending(false)
+    })
   }
 
   return (
@@ -255,7 +257,7 @@ const DescriptionPage = ({ params }: { params: { id: string } }) => {
               </CardHeader>
             </Card>
           </div>
-          <CreationBottomBar descPending={pending} />
+          <CreationBottomBar descPending={isPending} />
         </form>
       </Form>
     </>
