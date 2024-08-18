@@ -1,5 +1,6 @@
 import { SiteHeader } from "@/components/SiteHeader"
-import { EdgeStoreProvider } from "@/lib/edgestore"
+// import { EdgeStoreProvider } from "@/lib/edgestore"
+import { Toaster } from "@/components/ui/sonner"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
@@ -20,7 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SiteHeader />
-        <EdgeStoreProvider>{children}</EdgeStoreProvider>
+        {children}
+        <Toaster />
       </body>
     </html>
   )

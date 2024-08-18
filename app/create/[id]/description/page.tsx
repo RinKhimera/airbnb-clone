@@ -14,12 +14,15 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Progress } from "@/components/ui/progress"
+// import { Progress } from "@/components/ui/progress"
 import { Textarea } from "@/components/ui/textarea"
-import { useEdgeStore } from "@/lib/edgestore"
-import { cn } from "@/lib/utils"
+import { toast } from "sonner"
+// import { useEdgeStore } from "@/lib/edgestore"
+// import { cn } from "@/lib/utils"
 import { descriptionFormSchema } from "@/schemas"
+import { UploadButton } from "@/utils/uploadthing"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Loader2 } from "lucide-react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -29,10 +32,12 @@ const DescriptionPage = ({ params }: { params: { id: string } }) => {
   const [roomNumber, setRoomNumber] = useState(1)
   const [bathroomNumber, setBathroomNumber] = useState(1)
   const [pending, setPending] = useState(false)
-  const [file, setFile] = useState<File>()
+  // const [file, setFile] = useState<File>()
   const [progress, setProgress] = useState(0)
+  const [imgName, setImgName] = useState("")
+  const [imgUrl, setimgUrl] = useState("")
 
-  const { edgestore } = useEdgeStore()
+  // const { edgestore } = useEdgeStore()
 
   const form = useForm<z.infer<typeof descriptionFormSchema>>({
     resolver: zodResolver(descriptionFormSchema),
@@ -46,26 +51,32 @@ const DescriptionPage = ({ params }: { params: { id: string } }) => {
   const onSubmit = async (values: z.infer<typeof descriptionFormSchema>) => {
     setPending(true)
     try {
-      if (file) {
-        const res = await edgestore.homeImage.upload({
-          file,
-          onProgressChange: (progress) => {
-            // Progress bar management
-            setProgress(progress)
-            console.log(progress)
-          },
-        })
+      // if (file) {
+      //   const res = await edgestore.homeImage.upload({
+      //     file,
+      //     onProgressChange: (progress) => {
+      //       // Progress bar management
+      //       setProgress(progress)
+      //       console.log(progress)
+      //     },
+      //   })
+      // }
 
-        // Server action or api here to add the necessary data to your database
-        await createDescription({
-          homeId: params.id,
-          values,
-          guestNumber,
-          roomNumber,
-          bathroomNumber,
-          imgUrl: res.url,
-        })
+      if (!imgUrl) {
+        toast.error("Please upload an image")
+        return
       }
+
+      // Server action or api here to add the necessary data to your database
+      await createDescription({
+        homeId: params.id,
+        values,
+        guestNumber,
+        roomNumber,
+        bathroomNumber,
+        // imgUrl: res.url,
+        imgUrl: imgUrl,
+      })
     } catch (error) {
       throw error
     }
@@ -133,7 +144,7 @@ const DescriptionPage = ({ params }: { params: { id: string } }) => {
             />
 
             {/* With EdgeStore */}
-            <div>
+            {/* <div>
               <Label htmlFor="image">Image</Label>
               <Input
                 id="image"
@@ -147,10 +158,10 @@ const DescriptionPage = ({ params }: { params: { id: string } }) => {
                 value={progress}
                 className={cn("mt-1.5 h-2", { hidden: progress === 0 })}
               />
-            </div>
+            </div> */}
 
             {/* With UploadThings */}
-            {/* <div className="flex flex-col gap-y-2">
+            <div className="flex flex-col gap-y-2">
               <Label>Image</Label>
               <UploadButton
                 className="-mb-7 items-start ut-button:w-full ut-button:justify-start ut-button:border ut-button:bg-transparent ut-button:pl-3 ut-button:text-sm ut-button:text-black ut-button:ut-uploading:bg-blue-200 ut-button:ut-uploading:text-white"
@@ -195,7 +206,7 @@ const DescriptionPage = ({ params }: { params: { id: string } }) => {
                   alert(`ERROR! ${error.message}`)
                 }}
               />
-            </div> */}
+            </div>
 
             <Card>
               <CardHeader className="flex flex-col gap-y-5">
