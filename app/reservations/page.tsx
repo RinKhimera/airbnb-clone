@@ -56,7 +56,7 @@ const ReservationPage = async () => {
           {data.map((item) => (
             <ListingCard
               key={item.Home?.id}
-              homeId={item.Home?.id}
+              homeId={item.Home!.id}
               description={item.Home?.description}
               imagePath={item.Home?.photo}
               location={item.Home?.country}
