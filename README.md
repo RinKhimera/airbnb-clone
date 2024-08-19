@@ -1,40 +1,81 @@
-# Rinbnb
+<h1 align="center">rinbnb</h1>
 
+<div align="center">
 Peer-to-peer rental platform mimicking Airbnb's model, offering unique accommodations for travelers and hosts worldwide.
+</div>
+
+## Prerequisites
+
+Make sure you have the following installed on your machine:
+
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/en)
+- [npm](https://www.npmjs.com/) or [bun](https://bun.sh/)
 
 ## Installation
 
-Open your terminal or command prompt and navigate to the directory where you want to clone the repository:
+**Cloning the Repository**
+
+Open your terminal or command prompt, clone the repository, and navigate to the directory:
 
 ```bash
-cd path/to/your/directory
+git clone https://github.com/RinKhimera/airbnb-clone.git
+cd airbnb-clone
 ```
 
-Use the `git clone` command followed by the URL of the repository:
+**Install the dependencies**
 
-```bash
-cd path/to/your/directory
-```
-
-Install the dependencies:
+Install the project dependencies using npm or bun:
 
 ```bash
 npm install
+# or
+bun install
+```
+
+**Set Up Environment Variables**
+
+Create a new file named `.env.local` in the root of your project and add the following content:
+
+```env
+#Database
+DATABASE_URL=
+
+#Authentification with Kinde
+KINDE_POST_LOGIN_REDIRECT_URL=
+KINDE_POST_LOGOUT_REDIRECT_URL=
+KINDE_SITE_URL=
+KINDE_CLIENT_ID=
+KINDE_CLIENT_SECRET=
+KINDE_ISSUER_URL=
+
+#Uploadthing
+UPLOADTHING_APP_ID=
+UPLOADTHING_SECRET=
 ```
 
 ## Getting Started
 
-First, run the development server:
+Run the development server:
 
 ```bash
 npm run dev
 # or
-yarn dev
+bun run dev
 # or
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the project. You're done!
+
+## Tech Stack
+
+- Next.js
+- TailwindCSS
+- Shadcn UI
+- Prisma
+- Neon
+- TypeScript
 
 ## Deployment
 
@@ -53,7 +94,3 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## ⭐ Like what I'm doing? Give it a star
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
