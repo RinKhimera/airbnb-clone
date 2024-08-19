@@ -6,10 +6,8 @@ import {
 } from "@/components/SubmitButtons"
 import { useCountries } from "@/lib/getCountries"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
-import { Heart, Trash2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "./ui/button"
 
 type ListingCardProps = {
   homeId: string
@@ -50,7 +48,7 @@ export const ListingCard = async ({
           />
         </Link>
 
-        {userId && (
+        {user?.id && (
           <div className="absolute right-2 top-2 z-10">
             {isFavorite ? (
               <form action={removeFavorite}>
