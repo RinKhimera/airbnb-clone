@@ -46,9 +46,9 @@ model Home {
 }
 
 model Favorite {
-  User      User     @relation(fields: [userId], references: [id])
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  Home      Home     @relation(fields: [homeId], references: [id])
+  Home      Home     @relation(fields: [homeId], references: [id], onDelete: Cascade)
   homeId    String
   createdAt DateTime @default(now())
 
@@ -57,9 +57,9 @@ model Favorite {
 
 model Reservation {
   id        String   @id @default(uuid())
-  User      User?    @relation(fields: [userId], references: [id])
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?
-  Home      Home?    @relation(fields: [homeId], references: [id])
+  Home      Home?    @relation(fields: [homeId], references: [id], onDelete: Cascade)
   homeId    String?
   startDate DateTime
   endDate   DateTime

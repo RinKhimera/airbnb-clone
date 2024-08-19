@@ -2,13 +2,17 @@ import { addToFavorite, removeFavorite } from "@/app/actions"
 import {
   AddToFavoriteButton,
   DeleteFromFavoriteButton,
+  DeleteHomeButton,
 } from "@/components/SubmitButtons"
 import { useCountries } from "@/lib/getCountries"
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
+import { Heart, Trash2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { Button } from "./ui/button"
 
 type ListingCardProps = {
-  homeId: string | undefined
+  homeId: string
   imagePath: string | null | undefined
   description: string | null | undefined
   location: string | null | undefined
@@ -18,7 +22,7 @@ type ListingCardProps = {
   pathname: string
 }
 
-export const ListingCard = ({
+export const ListingCard = async ({
   homeId,
   description,
   imagePath,
@@ -28,6 +32,9 @@ export const ListingCard = ({
   isFavorite,
   pathname,
 }: ListingCardProps) => {
+  const { getUser } = getKindeServerSession()
+  const user = await getUser()
+
   const { getCountryByValue } = useCountries()
   const country = getCountryByValue(location as string)
 
@@ -48,18 +55,24 @@ export const ListingCard = ({
             {isFavorite ? (
               <form action={removeFavorite}>
                 <input type="hidden" name="homeId" value={homeId} />
-                <input type="hidden" name="userId" value={userId} />
+                <input type="hidden" name="userId" value={user?.id} />
                 <input type="hidden" name="pathname" value={pathname} />
                 <DeleteFromFavoriteButton />
               </form>
             ) : (
               <form action={addToFavorite}>
                 <input type="hidden" name="homeId" value={homeId} />
-                <input type="hidden" name="userId" value={userId} />
+                <input type="hidden" name="userId" value={user?.id} />
                 <input type="hidden" name="pathname" value={pathname} />
                 <AddToFavoriteButton />
               </form>
             )}
+          </div>
+        )}
+
+        {userId === user?.id && (
+          <div className="absolute right-[54px] top-2 z-10">
+            <DeleteHomeButton homeId={homeId} pathname={pathname} />
           </div>
         )}
       </div>

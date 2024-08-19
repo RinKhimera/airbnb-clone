@@ -1,7 +1,19 @@
 "use client"
 
+import { deleteHome } from "@/app/actions"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { Heart, Loader2 } from "lucide-react"
+import { Heart, Loader2, Trash2 } from "lucide-react"
 import { useFormStatus } from "react-dom"
 
 export const CreationSubmit = ({ descPending }: { descPending?: boolean }) => {
@@ -94,5 +106,47 @@ export const ReservationSubmitButton = () => {
         </Button>
       )}
     </>
+  )
+}
+
+export const DeleteHomeButton = ({
+  homeId,
+  pathname,
+}: {
+  homeId: string
+  pathname: string
+}) => {
+  const handleDeleteClick = () => {
+    deleteHome({ homeId, pathname })
+  }
+
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button
+          className="bg-primary-foreground"
+          variant={"outline"}
+          size={"icon"}
+          type="submit"
+        >
+          <Trash2 className="size-4 bg-primary-foreground" />
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete this
+            home.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleDeleteClick}>
+            Delete
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }

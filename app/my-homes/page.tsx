@@ -27,6 +27,11 @@ const getData = async (userId: string) => {
           userId: userId,
         },
       },
+      User: {
+        select: {
+          id: true,
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",
@@ -38,13 +43,14 @@ const getData = async (userId: string) => {
 const MyHomes = async () => {
   const { getUser } = getKindeServerSession()
   const user = await getUser()
+
   if (!user) return redirect("/")
 
   const data = await getData(user.id)
 
   return (
     <section className="container mx-auto mt-10 px-5 lg:px-10">
-      <h2 className="text-3xl font-semibold tracking-tight">Your Homes</h2>
+      <h2 className="text-3xl font-semibold tracking-tight">My Homes</h2>
 
       {data.length === 0 ? (
         <NoItems
@@ -61,7 +67,7 @@ const MyHomes = async () => {
               imagePath={item.photo}
               location={item.country}
               price={item.price}
-              userId={user.id}
+              userId={item.User?.id}
               isFavorite={item.Favorite.length > 0 ? true : false}
               pathname={"/my-homes"}
             />

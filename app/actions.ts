@@ -180,3 +180,19 @@ export const createReservation = async (formData: FormData) => {
 
   return redirect("/")
 }
+
+export const deleteHome = async ({
+  homeId,
+  pathname,
+}: {
+  homeId: string
+  pathname: string
+}) => {
+  await prisma.home.delete({
+    where: {
+      id: homeId,
+    },
+  })
+
+  return redirect(pathname)
+}

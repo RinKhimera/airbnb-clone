@@ -55,12 +55,17 @@ const getData = async ({
           userId: userId ?? undefined,
         },
       },
+      User: {
+        select: {
+          id: true,
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",
     },
   })
-  console.log(convertStringToNumber(searchParams?.guest as string))
+  // console.log(convertStringToNumber(searchParams?.guest as string))
   return data
 }
 
@@ -119,7 +124,7 @@ const ShowItems = async ({
               description={item.description}
               location={item.country}
               price={item.price}
-              userId={user?.id}
+              userId={item.User?.id}
               isFavorite={item.Favorite.length > 0 ? true : false}
               pathname="/"
             />

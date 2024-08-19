@@ -23,6 +23,7 @@ const getData = async (userId: string) => {
           country: true,
         },
       },
+      userId: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -58,7 +59,7 @@ const FavoritePage = async () => {
               imagePath={item.Home.photo}
               location={item.Home.country}
               price={item.Home.price}
-              userId={user.id}
+              userId={item.userId}
               isFavorite={true}
               pathname={"/favorites"}
             />
